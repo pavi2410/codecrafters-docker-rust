@@ -10,7 +10,7 @@ fn main() -> Result<()> {
         .args(command_args)
         .stdout(Stdio::inherit())
         .stderr(Stdio::inherit())
-        .output()
+        .status()
         .with_context(|| {
             format!(
                 "Tried to run '{}' with arguments {:?}",
@@ -18,9 +18,7 @@ fn main() -> Result<()> {
             )
         })?;
     
-    if !output.status.success() {
-        std::process::exit(1);
-    }
+    std::process::exit(output.code().unwrap_or(1));
 
     Ok(())
 }
