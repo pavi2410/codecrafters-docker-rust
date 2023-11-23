@@ -19,6 +19,4 @@ fn main() -> Result<()> {
         })?;
     
     std::process::exit(output.code().unwrap_or(1));
-
-    Ok(())
 }
