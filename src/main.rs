@@ -23,7 +23,7 @@ fn main() -> Result<()> {
     // std::env::set_current_dir("/")?;
 
     unsafe {
-        libc::unshare(libc::CLONE_NEWPID)?;
+        libc::unshare(libc::CLONE_NEWPID);
     }
 
     let output = std::process::Command::new(command)
