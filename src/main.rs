@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     let command = &args[3];
     let command_args = &args[4..];
 
-    std::fs::copy(command, format!("{}{}", tmp_dir, command));
+    std::fs::copy(command, tmp_dir.path().join(command));
 
     let output = std::process::Command::new(command)
         .args(command_args)
