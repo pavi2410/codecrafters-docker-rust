@@ -11,7 +11,7 @@ fn main() -> Result<()> {
     let command = &args[3];
     let command_args = &args[4..];
 
-    std::fs::copy(command, tmp_dir.path().join(command.strip_prefix("/").ok_or(command)))?;
+    std::fs::copy(command, tmp_dir.path().join(command.strip_prefix("/").unwrap_or(command)))?;
 
     println!("Copied = {}", tmp_dir.path().join(command).display());
 
