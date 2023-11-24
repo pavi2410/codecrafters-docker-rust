@@ -11,11 +11,13 @@ fn main() -> Result<()> {
     let command = &args[3];
     let command_args = &args[4..];
 
-    println!("Copying = {}", tmp_dir.path().join(command.strip_prefix("/").unwrap_or(command)).display());
+    let to = tmp_dir.path().join(command.strip_prefix("/").unwrap_or(command));
+    println!("Copying = {}", to.display());
+    
+    std::fs::create_dir_all(to.parent().unwrap())?;
+    std::fs::copy(command, to)?;
 
-    std::fs::copy(command, tmp_dir.path().join(command.strip_prefix("/").unwrap_or(command)))?;
-
-    println!("Copied = {}", tmp_dir.path().join(command.strip_prefix("/").unwrap_or(command)).display());
+    println!("Copied = {}", to.display());
 
     std::fs::create_dir_all(tmp_dir.path().join("dev"))?;
     std::fs::File::create(tmp_dir.path().join("dev/null"))?;
