@@ -17,8 +17,6 @@ fn main() -> Result<()> {
     std::fs::create_dir_all(to.parent().unwrap())?;
     std::fs::copy(command, to)?;
 
-    println!("Copied = {}", to.display());
-
     std::fs::create_dir_all(tmp_dir.path().join("dev"))?;
     std::fs::File::create(tmp_dir.path().join("dev/null"))?;
 
