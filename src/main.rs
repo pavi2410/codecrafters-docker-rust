@@ -12,13 +12,12 @@ fn main() -> Result<()> {
     let command_args = &args[4..];
 
     let to = tmp_dir.path().join(command.strip_prefix("/").unwrap_or(command));
-    println!("Copying = {}", to.display());
-    
     std::fs::create_dir_all(to.parent().unwrap())?;
     std::fs::copy(command, to)?;
 
-    std::fs::create_dir_all(tmp_dir.path().join("dev"))?;
-    std::fs::File::create(tmp_dir.path().join("dev/null"))?;
+    let dev_null = tmp_dir.path().join("dev/null");
+    std::fs::create_dir_all(dev_null.parent().unwrap())?;
+    std::fs::File::create(dev_null)?;
 
     fs::chroot(tmp_dir.path())?;
     // std::env::set_current_dir("/")?;
