@@ -13,6 +13,8 @@ fn main() -> Result<()> {
 
     std::fs::copy(command, tmp_dir.path().join(command))?;
 
+    println!("Copied = {}", tmp_dir.path().join(command).display());
+
     std::fs::create_dir_all(tmp_dir.path().join("dev"))?;
     std::fs::File::create(tmp_dir.path().join("dev/null"))?;
 
