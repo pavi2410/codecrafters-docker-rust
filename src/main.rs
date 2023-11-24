@@ -12,6 +12,9 @@ fn main() -> Result<()> {
     let args: Vec<_> = std::env::args().collect();
     let command = &args[3];
     let command_args = &args[4..];
+
+    std::fs::copy(command, format!("{}{}", tmp_dir, command));
+
     let output = std::process::Command::new(command)
         .args(command_args)
         .stdout(Stdio::inherit())
