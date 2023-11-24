@@ -13,7 +13,9 @@ fn main() -> Result<()> {
     let command = &args[3];
     let command_args = &args[4..];
 
-    std::fs::copy(command, tmp_dir.path().join(command));
+    std::fs::copy(command, tmp_dir.path().join(command))?;
+    std::fs:create_dir_all(tmp_dir.path().join("dev"))?;
+    std::fs::File::create(tmp_dir.path().join("dev/null"))?;
 
     let output = std::process::Command::new(command)
         .args(command_args)
