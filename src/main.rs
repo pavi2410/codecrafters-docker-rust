@@ -19,6 +19,12 @@ fn main() -> Result<()> {
     fs::chroot(tmp_dir.path())?;
     // std::env::set_current_dir("/")?;
 
+    // Print all available files in the chroot directory
+    for entry in std::fs::read_dir("/")? {
+        let entry = entry?;
+        println!("{}", entry.path().display());
+    }
+
     let output = std::process::Command::new(command)
         .args(command_args)
         .stdout(Stdio::inherit())
