@@ -17,7 +17,7 @@ fn main() -> Result<()> {
     std::fs::File::create(tmp_dir.path().join("dev/null"))?;
 
     fs::chroot(tmp_dir.path())?;
-    std::env::set_current_dir("/")?;
+    // std::env::set_current_dir("/")?;
 
     let output = std::process::Command::new(command)
         .args(command_args)
