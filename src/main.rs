@@ -6,16 +6,18 @@ use tempfile::tempdir;
 // Usage: your_docker.sh run <image> <command> <arg1> <arg2> ...
 fn main() -> Result<()> {
     let tmp_dir = tempdir()?;
-    fs::chroot(tmp_dir.path())?;
-    std::env::set_current_dir("/")?;
 
     let args: Vec<_> = std::env::args().collect();
     let command = &args[3];
     let command_args = &args[4..];
 
     std::fs::copy(command, tmp_dir.path().join(command))?;
+
     std::fs::create_dir_all(tmp_dir.path().join("dev"))?;
     std::fs::File::create(tmp_dir.path().join("dev/null"))?;
+
+    fs::chroot(tmp_dir.path())?;
+    std::env::set_current_dir("/")?;
 
     let output = std::process::Command::new(command)
         .args(command_args)
